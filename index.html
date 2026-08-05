@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Toda empresa nova da sua cidade, na sua caixa de entrada — R$99/mês</title>
+<meta name="description" content="Feed de CNPJs recém-abertos, filtrado por CNAE e cidade, com contato enriquecido quando público. R$99/mês por filtro. Comece pela amostra grátis da sua cidade.">
+<meta name="robots" content="index,follow">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23103a2f'/><path d='M8 20l5-6 4 4 7-9' stroke='%2338c98a' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+<style>
+  :root{
+    --ink:#12211c;
+    --ink-soft:#42544d;
+    --line:#d7e0db;
+    --bg:#ffffff;
+    --bg-soft:#f4f7f5;
+    --brand:#0f4d3a;
+    --brand-dark:#0a3729;
+    --accent:#e8f6ef;
+    --focus:#0b6bd3;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px}
+  h1,h2,h3{line-height:1.22;letter-spacing:-0.015em;margin:0 0 .5em}
+  h1{font-size:2.15rem;font-weight:800}
+  h2{font-size:1.5rem;font-weight:750;margin-top:0}
+  h3{font-size:1.06rem;font-weight:700}
+  p{margin:0 0 1em}
+  a{color:var(--brand);text-decoration:underline;text-underline-offset:2px}
+  strong{font-weight:700}
+  :focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:4px}
+
+  /* ---------- topo ---------- */
+  header.top{border-bottom:1px solid var(--line);background:var(--bg)}
+  header.top .wrap{display:flex;align-items:center;gap:10px;padding:14px 20px}
+  .mark{width:26px;height:26px;border-radius:6px;background:var(--brand);flex:0 0 auto;position:relative}
+  .mark::after{content:"";position:absolute;left:6px;top:11px;width:7px;height:7px;border-left:2.5px solid #38c98a;border-bottom:2.5px solid #38c98a;transform:rotate(-45deg)}
+  .brandname{font-weight:750;letter-spacing:-0.01em}
+
+  /* ---------- hero ---------- */
+  .hero{padding:46px 0 40px;border-bottom:1px solid var(--line)}
+  .eyebrow{display:inline-block;font-size:.8rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--brand);background:var(--accent);border-radius:999px;padding:5px 12px;margin-bottom:18px}
+  .hero .lede{font-size:1.16rem;color:var(--ink-soft);max-width:62ch}
+  .pricetag{display:inline-block;font-weight:750;border:1.5px solid var(--brand);color:var(--brand-dark);border-radius:8px;padding:6px 12px;font-size:1.02rem;margin:4px 0 22px}
+  .btn{
+    display:inline-block;background:var(--brand);color:#fff;text-decoration:none;
+    font-weight:750;font-size:1.05rem;padding:15px 26px;border-radius:10px;border:0;cursor:pointer;
+    line-height:1.25;
+  }
+  .btn:hover{background:var(--brand-dark)}
+  .btn.block{display:block;width:100%;text-align:center;font-size:1.08rem;padding:17px 20px}
+  .under-btn{font-size:.95rem;color:var(--ink-soft);margin-top:12px}
+
+  /* ---------- seções ---------- */
+  section{padding:40px 0;border-bottom:1px solid var(--line)}
+  .steps{list-style:none;margin:0;padding:0;counter-reset:s}
+  .steps li{counter-increment:s;position:relative;padding-left:52px;margin-bottom:22px}
+  .steps li::before{
+    content:counter(s);position:absolute;left:0;top:-1px;width:34px;height:34px;border-radius:50%;
+    background:var(--brand);color:#fff;font-weight:750;font-size:1rem;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .steps li p{margin:.15em 0 0;color:var(--ink-soft)}
+
+  .fields{list-style:none;margin:0 0 20px;padding:0;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .fields li{padding:12px 16px;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:2px 10px}
+  .fields li:last-child{border-bottom:0}
+  .fields li:nth-child(odd){background:var(--bg-soft)}
+  .fields b{min-width:190px;display:inline-block}
+  .fields span{color:var(--ink-soft);font-size:.97rem}
+
+  .note{background:var(--bg-soft);border-left:4px solid var(--brand);border-radius:0 10px 10px 0;padding:14px 18px;font-size:.98rem;color:var(--ink-soft)}
+  .note b{color:var(--ink)}
+
+  .plan{border:2px solid var(--brand);border-radius:14px;padding:24px}
+  .plan .amount{font-size:2.3rem;font-weight:800;letter-spacing:-0.03em;line-height:1}
+  .plan .per{font-size:1rem;font-weight:600;color:var(--ink-soft)}
+  .plan ul{list-style:none;margin:18px 0 0;padding:0}
+  .plan li{position:relative;padding-left:28px;margin-bottom:10px}
+  .plan li::before{content:"";position:absolute;left:4px;top:8px;width:8px;height:8px;border-left:2.5px solid var(--brand);border-bottom:2.5px solid var(--brand);transform:rotate(-45deg)}
+  .plan .fineprint{margin:18px 0 0;font-size:.93rem;color:var(--ink-soft)}
+
+  /* ---------- formulário ---------- */
+  #amostra{background:var(--bg-soft)}
+  form{margin-top:22px}
+  .field{margin-bottom:16px}
+  label{display:block;font-weight:650;margin-bottom:6px;font-size:.97rem}
+  .hint{font-weight:400;color:var(--ink-soft);font-size:.9rem}
+  input[type=text],input[type=email],textarea{
+    width:100%;font:inherit;font-size:1rem;color:var(--ink);background:#fff;
+    border:1.5px solid #b9c6c0;border-radius:9px;padding:12px 13px;
+  }
+  textarea{min-height:84px;resize:vertical}
+  input::placeholder,textarea::placeholder{color:#7d8d86}
+  .check{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1.5px solid var(--brand);border-radius:10px;padding:14px 16px;margin:22px 0 18px;cursor:pointer}
+  .check input{width:22px;height:22px;margin:1px 0 0;flex:0 0 auto;accent-color:var(--brand)}
+  .check .t{font-weight:700}
+  .check .s{display:block;font-weight:400;color:var(--ink-soft);font-size:.93rem;margin-top:2px}
+  #status{margin-top:16px;padding:14px 16px;border-radius:10px;font-size:.98rem;display:none}
+  #status.on{display:block}
+  #status.info{background:#fff8e6;border:1.5px solid #e6c15c;color:#5c4708}
+  #status.err{background:#fdecec;border:1.5px solid #e08b8b;color:#7a1f1f}
+  #status.ok{background:#e8f6ef;border:1.5px solid var(--brand);color:var(--brand-dark)}
+
+  /* ---------- faq ---------- */
+  .faq{margin:0}
+  .faq details{border:1px solid var(--line);border-radius:10px;margin-bottom:10px;background:#fff}
+  .faq summary{cursor:pointer;font-weight:700;padding:14px 16px;list-style:none}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";float:right;font-weight:750;color:var(--brand)}
+  .faq details[open] summary::after{content:"–"}
+  .faq .a{padding:0 16px 14px;color:var(--ink-soft)}
+  .faq .a p:last-child{margin-bottom:0}
+
+  footer{padding:30px 0 44px;color:var(--ink-soft);font-size:.92rem}
+  footer p{margin-bottom:.6em}
+
+  @media (max-width:600px){
+    body{font-size:16px}
+    h1{font-size:1.72rem}
+    h2{font-size:1.32rem}
+    .hero{padding:34px 0 32px}
+    section{padding:32px 0}
+    .fields b{min-width:0;display:block;width:100%}
+    .plan{padding:20px}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <span class="mark" aria-hidden="true"></span>
+    <span class="brandname">Elucidata · CNPJs Novos</span>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Para escritórios de contabilidade</span>
+    <h1>Toda empresa nova da sua cidade, na sua caixa de entrada.</h1>
+    <p class="lede">Um feed das empresas que acabaram de abrir CNPJ, filtrado pelo CNAE e pela região que o seu escritório atende — com o contato que é público já junto. Chega por e-mail no dia seguinte à liberação do dado oficial.</p>
+    <p class="pricetag">R$99/mês por filtro (CNAE + região)</p>
+    <p><a class="btn" href="#amostra">Receber a amostra grátis da minha cidade</a></p>
+    <p class="under-btn">A amostra é a lista real das empresas abertas nos últimos 7 dias na sua cidade. Sem cartão e sem compromisso.</p>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2>Quem fala primeiro leva o cliente</h2>
+    <p>A empresa que abriu ontem precisa de contador esta semana: enquadramento, alvará, nota, folha. Ela vai fechar com quem chegar primeiro — normalmente o escritório que o contador do prédio indicou, ou quem ligou antes.</p>
+    <p>Essa informação é pública. O problema é que ela sai em lote, misturada com o Brasil inteiro, e ninguém tem tempo de garimpar planilha da Receita todo dia para achar as dez empresas que interessam. É exatamente isso que fazemos por você.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Como funciona, em 3 passos</h2>
+    <ol class="steps">
+      <li>
+        <h3>Você escolhe o filtro</h3>
+        <p>Diz quais CNAEs interessam (ou os grupos: comércio, serviços, saúde, transporte…) e a cidade ou região que o escritório atende.</p>
+      </li>
+      <li>
+        <h3>Nós filtramos as empresas novas</h3>
+        <p>Cruzamos os dados públicos de abertura de CNPJ da Receita Federal com o seu recorte, tiramos o ruído e enriquecemos o contato quando ele é público.</p>
+      </li>
+      <li>
+        <h3>Chega na sua caixa de entrada</h3>
+        <p>E-mail com a lista pronta e a planilha anexa, nos dias úteis, no dia seguinte à liberação do dado oficial. Você abre e já sabe para quem ligar.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>O que vem em cada linha do feed</h2>
+    <ul class="fields">
+      <li><b>Razão social</b><span>e nome fantasia, quando declarado</span></li>
+      <li><b>CNPJ</b><span>número completo, matriz ou filial</span></li>
+      <li><b>Data de abertura</b><span>a data de início de atividade registrada</span></li>
+      <li><b>CNAE</b><span>código principal com a descrição, e os secundários</span></li>
+      <li><b>Bairro e endereço</b><span>logradouro, bairro, município e CEP do registro</span></li>
+      <li><b>Telefone e e-mail</b><span>quando constam como dado público</span></li>
+      <li><b>Porte e natureza jurídica</b><span>MEI, ME, LTDA, SLU — para você já saber o enquadramento</span></li>
+    </ul>
+    <p class="note"><b>O que o dado não sustenta, a gente não promete.</b> Empresa recém-aberta não vem com contato completo em 100% dos casos: parte das linhas chega sem telefone, parte sem e-mail, e às vezes o endereço é o do contador que abriu. Isso é limitação da origem, não filtro nosso. Você recebe a linha do mesmo jeito, com tudo que existe, e decide o que fazer com ela. Na amostra grátis você vê essa proporção real na sua cidade antes de pagar qualquer coisa.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Preço</h2>
+    <div class="plan">
+      <div><span class="amount">R$99</span> <span class="per">/mês, por filtro</span></div>
+      <p style="margin:.7em 0 0;color:var(--ink-soft)">Um filtro = um conjunto de CNAEs + uma região.</p>
+      <ul>
+        <li>Envio nos dias úteis, no dia seguinte à liberação do dado oficial</li>
+        <li>Lista no corpo do e-mail e planilha anexa (CSV e XLSX)</li>
+        <li>Contato público enriquecido quando disponível</li>
+        <li>Troque o CNAE ou a cidade quando quiser, sem custo</li>
+        <li>Sem taxa de setup, sem fidelidade, cancela quando quiser</li>
+      </ul>
+      <p class="fineprint">Precisa de mais de um recorte? Cada filtro adicional custa R$99/mês. Ex.: contabilidade de saúde na sua cidade + comércio na cidade vizinha = 2 filtros.</p>
+    </div>
+  </div>
+</section>
+
+<section id="amostra">
+  <div class="wrap">
+    <h2>Receber a amostra grátis da minha cidade</h2>
+    <p>Diga a sua cidade e os CNAEs que interessam. Nós montamos a lista real das empresas abertas nos últimos 7 dias nesse recorte e mandamos para você olhar. Sem cartão, sem cobrança, sem compromisso.</p>
+
+    <form id="lead" novalidate>
+      <div class="field">
+        <label for="nome">Seu nome <span class="hint">(obrigatório)</span></label>
+        <input type="text" id="nome" name="nome" autocomplete="name" required placeholder="Como devemos te chamar">
+      </div>
+      <div class="field">
+        <label for="email">E-mail para receber a amostra <span class="hint">(obrigatório)</span></label>
+        <input type="email" id="email" name="email" autocomplete="email" required placeholder="voce@seuescritorio.com.br">
+      </div>
+      <div class="field">
+        <label for="escritorio">Nome do escritório</label>
+        <input type="text" id="escritorio" name="escritorio" autocomplete="organization" placeholder="Contabilidade Silva">
+      </div>
+      <div class="field">
+        <label for="cidade">Cidade (e estado) que você atende <span class="hint">(obrigatório)</span></label>
+        <input type="text" id="cidade" name="cidade" required placeholder="Ex.: Uberaba - MG">
+      </div>
+      <div class="field">
+        <label for="cnaes">CNAEs de interesse <span class="hint">— código ou só o ramo, como você fala no dia a dia</span></label>
+        <textarea id="cnaes" name="cnaes" placeholder="Ex.: comércio varejista, restaurantes e lanchonetes, clínicas e consultórios, transporte de carga. Se souber os códigos, melhor ainda."></textarea>
+      </div>
+
+      <label class="check" for="ativar">
+        <input type="checkbox" id="ativar" name="quer_ativar" value="sim">
+        <span>
+          <span class="t">Quero ativar o feed por R$99/mês</span>
+          <span class="s">Marque se, gostando da amostra, você já quer o feed rodando no seu recorte. Marcar não gera cobrança nenhuma agora — só entra na fila de ativação e te dá prioridade.</span>
+        </span>
+      </label>
+
+      <button class="btn block" type="submit" id="send">Quero minha amostra grátis</button>
+      <div id="status" role="status" aria-live="polite"></div>
+      <p class="under-btn">Usamos o seu e-mail para mandar a amostra e falar sobre o feed. Nada além disso, e você pede para sair quando quiser.</p>
+    </form>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Perguntas diretas</h2>
+    <div class="faq">
+      <details>
+        <summary>De onde vem o dado?</summary>
+        <div class="a"><p>Dos dados públicos de CNPJ divulgados pela Receita Federal, que qualquer pessoa pode baixar. Não há nada obscuro na origem: o nosso trabalho é filtrar pelo seu recorte, limpar, enriquecer o que é público e entregar isso pronto todo dia útil — em vez de você baixar gigabytes de planilha e garimpar.</p></div>
+      </details>
+      <details>
+        <summary>Quando exatamente a lista chega?</summary>
+        <div class="a"><p>No dia seguinte à liberação do dado oficial. O órgão publica em lote; assim que o lote com as novas aberturas sai, processamos e enviamos. Estamos medindo esse intervalo com precisão e preferimos não cravar um número antes de ter certeza — quando tivermos, ele vai estar escrito aqui.</p></div>
+      </details>
+      <details>
+        <summary>Posso cancelar quando quiser?</summary>
+        <div class="a"><p>Sim. Sem fidelidade, sem multa e sem contrato de prazo. Você avisa e o feed para no fim do ciclo já pago.</p></div>
+      </details>
+      <details>
+        <summary>Posso pedir mais de um filtro?</summary>
+        <div class="a"><p>Pode, quantos quiser. Cada filtro (conjunto de CNAEs + região) é R$99/mês. Também pode trocar o recorte de um filtro existente sem custo se mudar o foco do escritório.</p></div>
+      </details>
+      <details>
+        <summary>E se a minha cidade for pequena e abrir pouca empresa?</summary>
+        <div class="a"><p>O volume varia muito por cidade e por CNAE — não vamos inventar média. É justamente para isso que a amostra existe: você vê o número real do seu recorte nos últimos 7 dias e decide se vale R$99/mês. Se o volume for baixo demais, dá para abrir o filtro para a microrregião.</p></div>
+      </details>
+      <details>
+        <summary>Vocês fazem a abordagem no meu lugar?</summary>
+        <div class="a"><p>Não. Entregamos a informação organizada; o contato e a proposta são seus. É o seu relacionamento e o seu nome na cidade.</p></div>
+      </details>
+      <details>
+        <summary>E a LGPD?</summary>
+        <div class="a"><p>Trabalhamos com a base pública de pessoas jurídicas divulgada pela Receita Federal — dado cadastral de empresa, publicado pelo próprio órgão. O uso que você faz do contato na sua prospecção é responsabilidade do seu escritório, como em qualquer lista.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><strong>Elucidata</strong> · CNPJs Novos — feed de empresas recém-abertas para escritórios de contabilidade.</p>
+    <p>Dados de origem pública, divulgados pela Receita Federal. Não somos ligados a nenhum órgão público.</p>
+    <p>Esta página está em fase de validação com os primeiros escritórios: o cadastro é para receber a amostra e conversar, não é uma compra.</p>
+  </div>
+</footer>
+
+<script>
+  const FORM_ENDPOINT = ""; // TROCAR AQUI quando o endpoint existir — é a única linha a mudar
+
+  (function () {
+    var form = document.getElementById('lead');
+    var btn = document.getElementById('send');
+    var box = document.getElementById('status');
+
+    function say(kind, msg) {
+      box.className = 'on ' + kind;
+      box.textContent = msg;
+    }
+
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+
+      // validação mínima no cliente
+      var nome = form.nome.value.trim();
+      var email = form.email.value.trim();
+      var cidade = form.cidade.value.trim();
+      if (!nome || !email || !cidade) {
+        say('err', 'Preencha nome, e-mail e cidade para a gente conseguir montar a sua amostra.');
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+        say('err', 'Confira o e-mail: ele parece incompleto.');
+        return;
+      }
+
+      // Sem endpoint configurado, não fingimos inscrição.
+      if (!FORM_ENDPOINT) {
+        say('info', 'Cadastro abrindo em instantes — estamos finalizando o canal de recebimento. Seus dados continuam preenchidos aqui; volte em algumas horas e envie novamente. Nada foi registrado ainda.');
+        return;
+      }
+
+      var data = new FormData(form);
+      data.append('origem', 'landing-cnpjs-novos');
+      data.append('enviado_em', new Date().toISOString());
+      data.set('quer_ativar', form.ativar.checked ? 'sim' : 'nao');
+
+      btn.disabled = true;
+      var label = btn.textContent;
+      btn.textContent = 'Enviando…';
+      box.className = '';
+
+      fetch(FORM_ENDPOINT, { method: 'POST', body: data })
+        .then(function (r) {
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          form.reset();
+          say('ok', 'Recebido. Vamos montar a lista das empresas abertas nos últimos 7 dias no seu recorte e mandar para o seu e-mail.');
+        })
+        .catch(function () {
+          say('err', 'Não conseguimos enviar agora. Tente novamente em alguns minutos — seus dados seguem preenchidos.');
+        })
+        .then(function () {
+          btn.disabled = false;
+          btn.textContent = label;
+        });
+    });
+  })();
+</script>
+</body>
+</html>
