@@ -152,8 +152,8 @@
     <h1>Toda empresa nova da sua cidade, na sua caixa de entrada.</h1>
     <p class="lede">Um feed das empresas que acabaram de abrir CNPJ, filtrado pelo CNAE e pela região que o seu escritório atende — com o contato que é público já junto. Chega por e-mail no dia seguinte à liberação do dado oficial.</p>
     <p class="pricetag">R$99/mês por filtro (CNAE + região)</p>
-    <p><a class="btn" href="#amostra">Receber a amostra grátis da minha cidade</a></p>
-    <p class="under-btn">A amostra é a lista real das empresas abertas na sua cidade, com a data de abertura de cada uma à vista. Sem cartão e sem compromisso.</p>
+    <p><a class="btn" href="#amostra">Dizer qual cidade eu quero ver primeiro</a></p>
+    <p class="under-btn">A lista de uma cidade é a relação real das empresas abertas lá, com a data de abertura de cada uma à vista. O formulário é anônimo: sem cartão, sem cadastro e sem e-mail.</p>
   </div>
 </div>
 
@@ -221,22 +221,11 @@
 
 <section id="amostra">
   <div class="wrap">
-    <h2>Receber a amostra grátis da minha cidade</h2>
-    <p>Diga a sua cidade e os CNAEs que interessam. Nós montamos a lista real das empresas abertas nesse recorte, com a data de abertura de cada uma à vista, e mandamos para você olhar. Sem cartão, sem cobrança, sem compromisso.</p>
+    <h2>Diga a cidade que você atende — anônimo, sem e-mail</h2>
+    <p>Este formulário não pede nome, e-mail nem telefone. Ele serve para duas coisas: saber qual cidade e quais CNAEs têm escritório esperando, e contar quantos querem o feed rodando por R$99/mês. Não gera cobrança e não cria cadastro.</p>
+    <p>Ainda não publicamos a lista da sua cidade. Quando publicarmos, ela fica aberta aqui, sem cadastro — e a ordem das cidades sai deste formulário.</p>
 
     <form id="lead" novalidate>
-      <div class="field">
-        <label for="nome">Seu nome <span class="hint">(obrigatório)</span></label>
-        <input type="text" id="nome" name="nome" autocomplete="name" required placeholder="Como devemos te chamar">
-      </div>
-      <div class="field">
-        <label for="email">E-mail para receber a amostra <span class="hint">(obrigatório)</span></label>
-        <input type="email" id="email" name="email" autocomplete="email" required placeholder="voce@seuescritorio.com.br">
-      </div>
-      <div class="field">
-        <label for="escritorio">Nome do escritório</label>
-        <input type="text" id="escritorio" name="escritorio" autocomplete="organization" placeholder="Contabilidade Silva">
-      </div>
       <div class="field">
         <label for="cidade">Cidade (e estado) que você atende <span class="hint">(obrigatório)</span></label>
         <input type="text" id="cidade" name="cidade" required placeholder="Ex.: Uberaba - MG">
@@ -250,13 +239,13 @@
         <input type="checkbox" id="ativar" name="quer_ativar" value="sim">
         <span>
           <span class="t">Quero ativar o feed por R$99/mês</span>
-          <span class="s">Marque se, gostando da amostra, você já quer o feed rodando no seu recorte. Marcar não gera cobrança nenhuma agora — só entra na fila de ativação e te dá prioridade.</span>
+          <span class="s">Marque se você quer o feed rodando no seu recorte. Marcar não gera cobrança nem cadastro — é assim que contamos quantos escritórios querem isto de verdade.</span>
         </span>
       </label>
 
-      <button class="btn block" type="submit" id="send">Quero minha amostra grátis</button>
+      <button class="btn block" type="submit" id="send">Enviar — sem nome e sem e-mail</button>
       <div id="status" role="status" aria-live="polite"></div>
-      <p class="under-btn">Usamos o seu e-mail para mandar a amostra e falar sobre o feed. Nada além disso, e você pede para sair quando quiser.</p>
+      <p class="under-btn">Sai deste navegador apenas o que você escreveu nos dois campos acima e se você marcou a caixa. E-mail e telefone digitados por engano são removidos antes do envio.</p>
     </form>
   </div>
 </section>
@@ -301,67 +290,121 @@
   <div class="wrap">
     <p><strong>Elucidata</strong> · CNPJs Novos — feed de empresas recém-abertas para escritórios de contabilidade.</p>
     <p>Dados de origem pública, divulgados pela Receita Federal. Não somos ligados a nenhum órgão público.</p>
-    <p>Esta página está em fase de validação com os primeiros escritórios: o cadastro é para receber a amostra e conversar, não é uma compra.</p>
+    <p>Esta página está em fase de validação com os primeiros escritórios: o formulário é anônimo e serve para dizer o que você quer ver aqui — não é uma compra e não cria cadastro.</p>
   </div>
 </footer>
 
 <script>
-  const FORM_ENDPOINT = ""; // TROCAR AQUI quando o endpoint existir — é a única linha a mudar
+  /* ==================================================================
+     CAPTURA ANÔNIMA — INSTRUMENTO DA MÉTRICA DO GATE 1
+     Substitui o antigo FORM_ENDPOINT (que nunca existiu): a submissão vai
+     para um tópico público do ntfy.sh — custo R$0, sem conta, sem termos.
+
+     Sai do navegador APENAS: cidade, CNAEs, o marcador "quero ativar por
+     R$99/mês", a variante da landing e um timestamp. Nome, e-mail e telefone
+     não são pedidos em lugar nenhum desta página, e o texto livre ainda passa
+     por um filtro que remove e-mail/telefone digitados por engano antes do
+     envio — superfície LGPD ~nula.
+
+     ⚠ O ntfy retém mensagem por ~12h. A evidência do gate só sobrevive
+     porque `ops/coletar_intencao.py` colhe o tópico a cada heartbeat e faz
+     append idempotente em `ops/intencoes.jsonl`. Não remova esse hábito.
+  ================================================================== */
+  const NTFY = 'https://ntfy.sh/rtm-g00111-ativacao-7b4e2d';
+  const VARIANTE = 'atual'; // 'atual' | 'primeira_dor' — separa a leitura das duas versões
 
   (function () {
     var form = document.getElementById('lead');
     var btn = document.getElementById('send');
     var box = document.getElementById('status');
+    var chk = document.getElementById('ativar');
+    if (!form || !btn || !box) return;
+
+    var enviado = false;   // 1 mensagem por submissão, para sempre
+    var enviando = false;  // trava de duplo clique
 
     function say(kind, msg) {
       box.className = 'on ' + kind;
       box.textContent = msg;
     }
 
+    /* --- filtro de PII: e-mail e telefone somem antes de sair daqui --- */
+    function limpaPII(s) {
+      return String(s || '')
+        .replace(/[A-Za-z0-9._%+\-]+\s*(?:@|\(at\)|\[at\])\s*[A-Za-z0-9.\-]+\.[A-Za-z]{2,}/gi, ' ')
+        .replace(/[A-Za-z0-9._%+\-]*@[A-Za-z0-9._%+\-]*/g, ' ')
+        .replace(/\+?\d[\d\s().\-]{7,}\d/g, ' ');
+    }
+
+    function texto(campo, limite) {
+      return limpaPII(campo && campo.value).replace(/\s+/g, ' ').trim().slice(0, limite);
+    }
+
+    function listaCnaes() {
+      return limpaPII(form.cnaes && form.cnaes.value)
+        .split(/[\n\r,;\/]+/)
+        .map(function (s) { return s.replace(/\s+/g, ' ').trim().slice(0, 80); })
+        .filter(function (s) { return s.length > 1; })
+        .slice(0, 40);
+    }
+
+    function origem() {
+      try {
+        var o = new URLSearchParams(location.search).get('o') || 'direto';
+        return String(o).replace(/[^\w\s.\-]/g, '').trim().slice(0, 60) || 'direto';
+      } catch (e) { return 'direto'; }
+    }
+
     form.addEventListener('submit', function (ev) {
       ev.preventDefault();
+      if (enviado || enviando) return;
 
-      // validação mínima no cliente
-      var nome = form.nome.value.trim();
-      var email = form.email.value.trim();
-      var cidade = form.cidade.value.trim();
-      if (!nome || !email || !cidade) {
-        say('err', 'Preencha nome, e-mail e cidade para a gente conseguir montar a sua amostra.');
-        return;
-      }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
-        say('err', 'Confira o e-mail: ele parece incompleto.');
+      var cidade = texto(form.cidade, 80);
+      if (!cidade) {
+        say('err', 'Escreva a cidade (e o estado) que o seu escritório atende — é o único campo obrigatório.');
         return;
       }
 
-      // Sem endpoint configurado, não fingimos inscrição.
-      if (!FORM_ENDPOINT) {
-        say('info', 'Cadastro abrindo em instantes — estamos finalizando o canal de recebimento. Seus dados continuam preenchidos aqui; volte em algumas horas e envie novamente. Nada foi registrado ainda.');
-        return;
-      }
+      var quer = !!(chk && chk.checked);
+      var payload = {
+        variante: VARIANTE,
+        cidade: cidade,
+        cnaes: listaCnaes(),
+        quer_ativar: quer,
+        origem: origem(),
+        ts: new Date().toISOString()
+      };
 
-      var data = new FormData(form);
-      data.append('origem', 'landing-cnpjs-novos');
-      data.append('enviado_em', new Date().toISOString());
-      data.set('quer_ativar', form.ativar.checked ? 'sim' : 'nao');
-
+      enviando = true;
       btn.disabled = true;
       var label = btn.textContent;
       btn.textContent = 'Enviando…';
       box.className = '';
 
-      fetch(FORM_ENDPOINT, { method: 'POST', body: data })
+      fetch(NTFY, { method: 'POST', body: JSON.stringify(payload) })
         .then(function (r) {
           if (!r.ok) throw new Error('HTTP ' + r.status);
-          form.reset();
-          say('ok', 'Recebido. Vamos montar a lista das empresas abertas no seu recorte e mandar para o seu e-mail.');
+          if (quer) {
+            /* pedido de ativação é a métrica do gate: trava para não contar duas vezes */
+            enviado = true;
+            btn.textContent = 'Enviado';
+            say('ok', 'Recebido: registramos o seu pedido de ativação do feed por R$99/mês em '
+              + cidade + '. Nada foi cobrado. Não veio nome, e-mail nem telefone junto — como '
+              + 'está escrito acima, não temos como te contatar por aqui.');
+          } else {
+            enviando = false;
+            btn.disabled = false;
+            btn.textContent = label;
+            say('ok', 'Recebido: ' + cidade + ' entrou na fila de priorização das listas. Não veio '
+              + 'nome, e-mail nem telefone junto. Se você quiser o feed rodando no seu recorte, '
+              + 'marque a caixa de R$99/mês e envie de novo.');
+          }
         })
         .catch(function () {
-          say('err', 'Não conseguimos enviar agora. Tente novamente em alguns minutos — seus dados seguem preenchidos.');
-        })
-        .then(function () {
+          enviando = false;
           btn.disabled = false;
           btn.textContent = label;
+          say('err', 'Não consegui enviar agora — pode ser a sua rede, um bloqueador ou o serviço fora do ar. Nada foi salvo e nada ficou pela metade. Seus dados seguem preenchidos: dá para tentar de novo.');
         });
     });
   })();
