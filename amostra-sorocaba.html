@@ -133,16 +133,26 @@
     (12,76%). É contagem pura: nenhuma linha foi removida por “parecer” de contabilidade
     pelo nome.</p>
 
-    <p class="note"><b>O limite dessa regra, dito por nós mesmos.</b> Um escritório que abriu
-    <b>uma única</b> empresa nesta janela não repete e-mail nenhum e, portanto, <b>não é detectável
-    por repetição</b> — ele continua na lista. Ou seja: 721 é o <b>piso</b> do que existe de
-    intermediário no dado, não o teto. Preferimos uma regra que você consegue reproduzir a uma
-    heurística mais agressiva que erraria contra o empresário.</p>
+    <p class="note"><b>Onde a regra erra por falta.</b> Um escritório que abriu <b>uma única</b>
+    empresa nesta janela não repete e-mail nenhum e, portanto, <b>não é detectável por
+    repetição</b> — ele continua na lista. Ou seja: 721 é o <b>piso</b> do que existe de
+    intermediário no dado, não o teto.</p>
+
+    <p class="note"><b>Onde a regra pode errar por excesso — e o tamanho exato do risco.</b> Dos
+    721 removidos, <b>529</b> usam domínio próprio (são escritórios e plataformas de
+    abertura, e sobre esses não há dúvida). Os outros <b>192</b> usam gmail, hotmail ou
+    outro provedor pessoal e caíram <b>só pela repetição</b>. Desses, <b>92</b> aparecem
+    em exatamente 2 CNPJs — e aí pode ser tanto um contador pequeno trabalhando do e-mail pessoal
+    quanto <b>o mesmo empresário abrindo a segunda empresa dele</b>. Não temos como separar os dois
+    casos com o dado da Receita, então removemos os dois e estamos te contando quantos são. Se
+    preferir recebê-los de volta marcados em vez de removidos, é só pedir.</p>
 
     <div class="cols" style="margin-top:20px">
       <div class="card">
-        <h3>Domínios mais removidos</h3>
-        <ul class="rank"><li><span>gmail.com</span><b>147</b></li><li><span>maismei.com.br</span><b>130</b></li><li><span>contabilizei.com.br</span><b>45</b></li><li><span>hotmail.com</span><b>23</b></li><li><span>visionpartners.com.br</span><b>22</b></li><li><span>e-tardelli.com.br</span><b>9</b></li><li><span>outlook.com</span><b>9</b></li><li><span>alianca.sorocaba.br</span><b>8</b></li></ul>
+        <h3>Escritórios e plataformas mais removidos</h3>
+        <p style="margin:-4px 0 8px;color:var(--ink-soft);font-size:.88rem">Por domínio próprio.
+        Provedores pessoais não entram nesta contagem.</p>
+        <ul class="rank"><li><span>maismei.com.br</span><b>130</b></li><li><span>contabilizei.com.br</span><b>45</b></li><li><span>visionpartners.com.br</span><b>22</b></li><li><span>e-tardelli.com.br</span><b>9</b></li><li><span>alianca.sorocaba.br</span><b>8</b></li><li><span>espacocontabilidade.com</span><b>8</b></li><li><span>escritoriosercon.com.br</span><b>8</b></li><li><span>contato.com.br</span><b>8</b></li></ul>
       </div>
       <div class="card">
         <h3>Aberturas por mês, já sem os intermediários</h3>
